@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: celenganku-backend
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node dist/main.js
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: NODE_ENV
+        value: production
+      - key: DEFAULT_USER_ID
+        value: user_id_123
+      - key: FIREBASE_DATABASE_URL
+        sync: false
+

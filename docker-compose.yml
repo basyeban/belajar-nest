@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: celenganku-backend
+    restart: always
+    ports:
+      - '4000:4000'
+    environment:
+      - PORT=4000
+      - DEFAULT_USER_ID=user_id_123
+      - FIREBASE_DATABASE_URL=${FIREBASE_DATABASE_URL:-}
+      - FIREBASE_DATABASE_AUTH=${FIREBASE_DATABASE_AUTH:-}
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:4000/api
+    container_name: celenganku-frontend
+    restart: always
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:4000/api
+      - NEXT_PUBLIC_USER_ID=user_id_123
+
