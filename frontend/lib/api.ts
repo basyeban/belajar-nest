@@ -1,7 +1,11 @@
 import { Goal, Transaction, DashboardStats, User } from './types';
 
+// Di browser → relative '/api' sehingga Next.js rewrite proxy yang forward ke backend
+// Di server-side (build) → gunakan URL backend langsung
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+  typeof window !== 'undefined'
+    ? '/api'
+    : process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 
 export function getActiveUserId(): string {
   if (typeof window !== 'undefined') {

@@ -12,7 +12,8 @@ export default async function handler(req: any, res: any) {
     app.enableCors({
       origin: '*',
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-      credentials: true,
+      allowedHeaders: 'Content-Type,Authorization,x-user-id',
+      credentials: false,
     });
     app.useGlobalPipes(
       new ValidationPipe({
@@ -38,7 +39,8 @@ async function bootstrap() {
   app.enableCors({
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true,
+    allowedHeaders: 'Content-Type,Authorization,x-user-id',
+    credentials: false,
   });
 
   // Global validation pipe untuk DTO
